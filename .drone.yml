@@ -1,0 +1,16 @@
+build:
+  image: golang:1.6
+  environment:
+    - GOOS=linux
+    - GOARCH=arm
+    - GOARM=5
+  commands:
+    - go get github.com/docker/distribution/cmd/registry
+    - cp $GOPATH/bin/linux_arm/registry $$DRONE_DIR/registry/registry
+
+publish:
+  docker:
+    username: $$DOCKER_HUB_USERNAME
+    password: $$DOCKER_HUB_PASSWORD
+    repo: raizyr/rpi-registry
+
